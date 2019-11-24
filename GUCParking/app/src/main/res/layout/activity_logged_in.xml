@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:fillViewport="true">
+
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="50dp"
+    android:orientation="vertical"
+    tools:context=".LoggedIn">
+
+    <ImageView
+      android:id="@+id/imageView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:layout_editor_absoluteX="142dp"
+      tools:layout_editor_absoluteY="67dp"
+      android:layout_weight="1"
+      tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+    android:id="@+id/textName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="TextView"
+    android:textSize="24sp"
+    tools:layout_editor_absoluteX="157dp"
+    tools:layout_editor_absoluteY="275dp" />
+
+
+
+  <TextView
+    android:id="@+id/textEmail"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="TextView"
+    android:textSize="24sp"
+    tools:layout_editor_absoluteX="157dp"
+    tools:layout_editor_absoluteY="339dp" />
+
+  <TextView
+    android:id="@+id/textID"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="TextView"
+    android:textSize="24sp"
+    tools:layout_editor_absoluteX="157dp"
+    tools:layout_editor_absoluteY="405dp" />
+
+  <Button
+    android:id="@+id/button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Sign out"
+    tools:layout_editor_absoluteX="168dp"
+    tools:layout_editor_absoluteY="465dp" />
+
+  </LinearLayout>
+</ScrollView>
