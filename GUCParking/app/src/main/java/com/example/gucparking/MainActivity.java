@@ -11,6 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -19,6 +29,9 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONObject;
+
+import java.util.Arrays;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -34,10 +47,15 @@ public class MainActivity extends AppCompatActivity {
   private String BASE_URL = "http://10.0.2.2:3000";
   private GoogleSignInClient mGoogleSignInClient;
   int RC_SIGN_IN = 0;
+  private CallbackManager mCallbackManager;
+  private static final String AUTH_TYPE = "rerequest";
+  private static final String EMAIL = "email";
+  LoginButton loginButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    FacebookSdk.sdkInitialize(this.getApplicationContext());
     setContentView(R.layout.activity_main);
 
     retrofit = new Retrofit.Builder()
@@ -86,6 +104,28 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
+    mCallbackManager = CallbackManager.Factory.create();
+    loginButton = findViewById(R.id.login_button);
+    loginButton.setReadPermissions(Arrays.asList(EMAIL));
+
+    loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+      @Override
+      public void onSuccess(LoginResult loginResult) {
+        setResult(RESULT_OK);
+        finish();
+      }
+
+      @Override
+      public void onCancel() {
+        setResult(RESULT_CANCELED);
+        finish();
+      }
+
+      @Override
+      public void onError(FacebookException e) {
+        // Handle exception
+      }
+    });
   }
 
 
@@ -95,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
+      mCallbackManager.onActivityResult(requestCode, resultCode, data);
+      super.onActivityResult(requestCode, resultCode, data);
 
     // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
     if (requestCode == RC_SIGN_IN) {
@@ -105,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
       handleSignInResult(task);
     }
   }
+
 
   private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
     try {
@@ -125,63 +167,13 @@ public class MainActivity extends AppCompatActivity {
   private void updateUI(GoogleSignInAccount account) {
   }
 
+
+
   public void googleSignIn(View v) {
         signIn();
     }
 
   private void handleLoginDialog() {
-
-    View view = getLayoutInflater().inflate(R.layout.login_dialog, null);
-
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-    builder.setView(view).show();
-
-    Button loginBtn = view.findViewById(R.id.login);
-    final EditText emailEdit = view.findViewById(R.id.emailEdit);
-    final EditText passwordEdit = view.findViewById(R.id.passwordEdit);
-
-    loginBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-
-        HashMap<String, String> map = new HashMap<>();
-
-        map.put("email", emailEdit.getText().toString());
-        map.put("password", passwordEdit.getText().toString());
-
-        Call<LoginResult> call = retrofitInterface.executeLogin(map);
-
-        call.enqueue(new Callback<LoginResult>() {
-          @Override
-          public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
-
-            if (response.code() == 200) {
-
-              LoginResult result = response.body();
-
-              AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
-              builder1.setTitle(result.getName());
-              builder1.setMessage(result.getEmail());
-
-              builder1.show();
-
-            } else if (response.code() == 404) {
-              Toast.makeText(MainActivity.this, "Wrong Credentials",
-                Toast.LENGTH_LONG).show();
-            }
-
-          }
-
-          @Override
-          public void onFailure(Call<LoginResult> call, Throwable t) {
-            Toast.makeText(MainActivity.this, t.getMessage(),
-              Toast.LENGTH_LONG).show();
-          }
-        });
-
-      }
-    });
 
   }
 

@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">GUCParking</string>
+  <string name="facebook_app_id">517835882141426</string>
+  <string name="fb_login_protocol_scheme">fb517835882141426</string>
 </resources>
