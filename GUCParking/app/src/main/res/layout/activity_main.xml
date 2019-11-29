@@ -8,19 +8,33 @@
   tools:context=".MainActivity">
 
 
-  <Button
-    android:id="@+id/login"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Log in"
-      android:layout_gravity="center_horizontal"/>
+  <TextView
+      android:id="@+id/textView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="80dp"
+      android:text="Welcome to"
+      android:textSize="30sp"
+      android:layout_marginLeft="120dp"/>
 
-  <Button
-    android:id="@+id/signup"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Sign up"
-      android:layout_gravity="center_horizontal"/>
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="GUC Parking"
+      android:textColor="#5BAF4C"
+      android:textSize="40sp"
+      android:layout_marginLeft="100dp"/>
+
+  <TextView
+      android:id="@+id/textView3"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Login with:"
+      android:textSize="24sp"
+      android:layout_marginTop="90dp"
+      android:layout_marginLeft="150dp"/>
+
 
   <com.google.android.gms.common.SignInButton
     android:id="@+id/sign_in_button"
