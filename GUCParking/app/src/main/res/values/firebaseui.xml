@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- [START auth_fui_resources] -->
+<resources>
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">517835882141426</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb517835882141426</string>
+</resources>
+    <!-- [END auth_fui_resources] -->
