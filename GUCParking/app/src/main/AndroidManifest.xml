@@ -49,10 +49,6 @@
             android:name=".EmailPasswordActivity"
             android:label="@string/label_emailpassword"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity
-            android:name=".ManageUserActivity"
-            android:label="@string/label_manage_user"
-            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>
