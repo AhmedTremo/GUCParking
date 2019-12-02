@@ -1,64 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  tools:context=".MainActivity">
+<RelativeLayout
+    style="@style/CustomRelativeLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <ImageView
+        android:id="@+id/logo"
+        style="@style/CustomLogoImageView"
+        android:contentDescription="@string/app_name"/>
 
-  <TextView
-      android:id="@+id/textView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center"
-      android:text="Welcome to"
-      android:layout_marginTop="70dp"
-      android:textSize="30sp" />
-
-  <TextView
-      android:id="@+id/textView2"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/textView"
-      android:gravity="center"
-      android:layout_marginTop="40dp"
-      android:text="GUC Parking"
-      android:textColor="#5BAF4C"
-      android:textSize="40sp"></TextView>
-
-
-  <TextView
-      android:id="@+id/textView3"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/textView2"
-      android:layout_alignParentStart="true"
-      android:gravity="center"
-      android:layout_marginTop="100dp"
-      android:text="Login with:"
-      android:textSize="24sp" />
-
-  <com.google.android.gms.common.SignInButton
-      android:id="@+id/sign_in_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/textView3"
-      android:layout_centerHorizontal="true"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="30dp"
-      android:layout_marginBottom="30dp"
-      android:gravity="top" />
-
-  <com.facebook.login.widget.LoginButton
-      android:id="@+id/login_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/sign_in_button"
-      android:layout_centerHorizontal="true"
-      android:layout_gravity="center_horizontal"
-    />
-
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:scrollbars="none"/>
 
 </RelativeLayout>
