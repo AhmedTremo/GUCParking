@@ -1,6 +1,7 @@
 package com.example.gucparking;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -148,6 +149,14 @@ public class EmailPasswordActivity extends com.example.gucparking.BaseActivity i
                     mTextViewProfile.setText(task.getException().getMessage());
                 } else {
                     mTextViewProfile.setTextColor(Color.DKGRAY);
+                    Intent i = new Intent(EmailPasswordActivity.this,Profile.class);
+                    String eemail = mEdtEmail.getText().toString();
+                    FirebaseUser uu = mAuth.getCurrentUser();
+                    String iid =(String) uu.getUid();
+
+                    i.putExtra("STRING_I_NEED",eemail);
+                    i.putExtra("ID",iid);
+                    startActivity(i);
                 }
                 hideProgressDialog();
             }
