@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "115167149056",
+    "firebase_url": "https://gucparking.firebaseio.com",
+    "project_id": "gucparking",
+    "storage_bucket": "gucparking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115167149056:android:cab27fdeb4aea27d32ace5",
+        "android_client_info": {
+          "package_name": "com.example.gucparking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115167149056-9gqa8uaiajfhpc4dvsassgjc52kj5sqd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSljPLOCXhVhgB1qQ6Ttmglf8eju3t9Qk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115167149056-9gqa8uaiajfhpc4dvsassgjc52kj5sqd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
