@@ -224,6 +224,7 @@ public class GoogleSignInActivity extends com.example.gucparking.BaseActivity im
         @Override
         protected void onPostExecute(Bitmap result) {
             if (result != null) {
+
                 mImageView.getLayoutParams().width = (getResources().getDisplayMetrics().widthPixels / 100) * 24;
                 mImageView.setImageBitmap(result);
             }

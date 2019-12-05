@@ -45,6 +45,7 @@ public class FacebookLoginActivity extends com.example.gucparking.BaseActivity i
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_facebook);
 
         mImageView = findViewById(R.id.logo);
