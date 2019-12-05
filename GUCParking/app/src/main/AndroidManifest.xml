@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
 
 
+
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             tools:replace="android:value"
             android:value="@string/facebook_app_id"/>
@@ -49,6 +50,10 @@
             android:name=".EmailPasswordActivity"
             android:label="@string/label_emailpassword"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".Profile"
+            android:label="Profile"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
