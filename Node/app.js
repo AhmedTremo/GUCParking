@@ -1,74 +1,46 @@
-const express = require('express')
-const app = express()
-const mongoClient = require('mongodb').MongoClient
+const express = require("express");
+const app = express();
+const PORT = 8080;
+const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
 
-const url = "mongodb://localhost:27017"
+const User = require("./models/Users");
 
-app.use(express.json())
+const url = "mongodb://mongo:27017/mongo-test";
 
-mongoClient.connect(url, (err, db) => {
+app.use(bodyParser.urlencoded({ extended: false }));
 
-    if (err) {
-        console.log("Error while connecting mongo client")
-    } else {
+mongoose
+    .connect(
+        url,
+        { useNewUrlParser: true, useUnifiedTopology: true }
+    )
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => console.log(err))
 
-        const myDb = db.db('myDb')
-        const collection = myDb.collection('myTable')
 
-        app.post('/signup', (req, res) => {
+app.get("/", (req, res) => {
+ res.send("Welcome to GUC Parking backend \n");
+});
 
-            const newUser = {
-                name: req.body.name,
-                email: req.body.email,
-                password: req.body.password
-            }
+// Sample use for the database
+// get all users in database
+app.get("/users", (req, res) => {
+    User.find()
+        .then(users => res.json(users))
+        .catch(err => res.status(404).json({ msg: 'no Users found'}))
+});
 
-            const query = { email: newUser.email }
+// create a user
+app.get("/user-create", (req, res) => {
+    const user = new User({ username: "userTest" })
+    
+    user.save()
+        .then(() => console.log("User Created"))
+    res.send("User Created \n")
+});
 
-            collection.findOne(query, (err, result) => {
 
-                if (result == null) {
-                    collection.insertOne(newUser, (err, result) => {
-                        res.status(200).send()
-                    })
-                } else {
-                    res.status(400).send()
-                }
-
-            })
-
-        })
-
-        app.post('/login', (req, res) => {
-
-            const query = {
-                email: req.body.email, 
-                password: req.body.password
-            }
-
-            collection.findOne(query, (err, result) => {
-
-                if (result != null) {
-
-                    const objToSend = {
-                        name: result.name,
-                        email: result.email
-                    }
-
-                    res.status(200).send(JSON.stringify(objToSend))
-
-                } else {
-                    res.status(404).send()
-                }
-
-            })
-
-        })
-
-    }
-
-})
-
-app.listen(3000, () => {
-    console.log("Listening on port 3000...")
-})
+app.listen(PORT, function() {
+ console.log(`Listening on ${PORT}`);
+});
