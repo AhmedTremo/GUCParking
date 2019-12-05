@@ -6,14 +6,18 @@ const bodyParser = require('body-parser');
 
 const User = require("./models/Users");
 
-const url = "mongodb://mongo:27017/mongo-test";
-
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// DB config
+const db = require('./config/keys_dev').mongoURI
 
 mongoose
     .connect(
-        url,
-        { useNewUrlParser: true, useUnifiedTopology: true }
+        db,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
     )
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err))
