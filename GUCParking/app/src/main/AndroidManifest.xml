@@ -41,13 +41,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FacebookLoginActivity"
+            android:name=".FacebookLogin"
             android:label="@string/label_facebook_login" />
         <activity
-            android:name=".GoogleSignInActivity"
+            android:name=".GoogleLogin"
             android:label="@string/label_google_sign_in" />
         <activity
-            android:name=".EmailPasswordActivity"
+            android:name=".EmailPassword"
             android:label="@string/label_emailpassword"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity

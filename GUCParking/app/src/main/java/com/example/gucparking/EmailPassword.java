@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
-import com.example.gucparking.R;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
@@ -29,8 +28,8 @@ import com.google.firebase.auth.FirebaseUser;
 import java.io.InputStream;
 import java.net.URL;
 
-public class EmailPasswordActivity extends com.example.gucparking.BaseActivity implements View.OnClickListener {
-    private static final String TAG = "EmailPasswordActivity";
+public class EmailPassword extends com.example.gucparking.BaseActivity implements View.OnClickListener {
+    private static final String TAG = "EmailPassword";
     private EditText mEdtEmail, mEdtPassword;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -104,10 +103,10 @@ public class EmailPasswordActivity extends com.example.gucparking.BaseActivity i
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(
-                                    EmailPasswordActivity.this, "Verification email sent to " + firebaseUser.getEmail(), Toast.LENGTH_LONG
+                                    EmailPassword.this, "Verification email sent to " + firebaseUser.getEmail(), Toast.LENGTH_LONG
                             ).show();
                         } else {
-                            Toast.makeText(EmailPasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(EmailPassword.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                         findViewById(R.id.verify_button).setEnabled(true);
                     }
@@ -149,7 +148,7 @@ public class EmailPasswordActivity extends com.example.gucparking.BaseActivity i
                     mTextViewProfile.setText(task.getException().getMessage());
                 } else {
                     mTextViewProfile.setTextColor(Color.DKGRAY);
-                    Intent i = new Intent(EmailPasswordActivity.this,Profile.class);
+                    Intent i = new Intent(EmailPassword.this,Profile.class);
                     String eemail = mEdtEmail.getText().toString();
                     FirebaseUser uu = mAuth.getCurrentUser();
                     String iid =(String) uu.getUid();

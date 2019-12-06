@@ -34,8 +34,8 @@ import com.google.firebase.auth.FirebaseUser;
 import java.io.InputStream;
 import java.net.URL;
 
-public class FacebookLoginActivity extends com.example.gucparking.BaseActivity implements View.OnClickListener {
-    private static final String TAG = "FacebookLoginActivity";
+public class FacebookLogin extends com.example.gucparking.BaseActivity implements View.OnClickListener {
+    private static final String TAG = "FacebookLogin";
     private CallbackManager mCallbackManager;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
