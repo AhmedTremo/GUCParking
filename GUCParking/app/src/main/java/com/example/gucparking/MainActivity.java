@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final Class[] CLASSES = new Class[]{
             EmailPassword.class,
             GoogleLogin.class,
-            FacebookLogin.class
+            FacebookLogin.class,
+            ManageUserActivity.class
     };
 
     @Override
