@@ -4,7 +4,10 @@
 
 - Login using Firebase authentication enabled (Email/password, Facebook, google).
 
-## Docker
+## Docker 
+We are using 2 docker containers one for node and other for mongoDB both built on their latest official image on DockerHub.
+
+## Docker-Compose
 
 - Make sure you install docker
 - run command 
@@ -19,7 +22,12 @@ docker-machine ip
 
 ## Config
 
-- You will need a .env config file in the node app, containing both MONGO_USERNAME=yourUsername, MONGO_PASSWORD=yourPassword
+- You will need a .env config file in the node app, containing both your mongoDB-Username & password.
+- and example .env file will contain the following lines
+```env
+MONGO_USERNAME=yourUsername
+MONGO_PASSWORD=yourPassword
+```
 
 ## Dependencies
 
