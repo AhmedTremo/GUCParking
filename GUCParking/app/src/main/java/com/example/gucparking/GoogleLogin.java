@@ -33,8 +33,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import java.io.InputStream;
 import java.net.URL;
 
-public class GoogleSignInActivity extends com.example.gucparking.BaseActivity implements View.OnClickListener{
-    private static final String TAG = "GoogleSignInActivity";
+public class GoogleLogin extends com.example.gucparking.BaseActivity implements View.OnClickListener{
+    private static final String TAG = "GoogleLogin";
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
@@ -62,7 +62,7 @@ public class GoogleSignInActivity extends com.example.gucparking.BaseActivity im
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = com.google.android.gms.auth.api.signin.GoogleSignIn.getClient(this, gso);
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -84,7 +84,7 @@ public class GoogleSignInActivity extends com.example.gucparking.BaseActivity im
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            Task<GoogleSignInAccount> task = com.google.android.gms.auth.api.signin.GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
