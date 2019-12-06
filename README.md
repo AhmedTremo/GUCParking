@@ -7,8 +7,15 @@
 ## Docker
 
 - Make sure you install docker
-- run command 'docker-compose up' --> this should build to containers on for node and one for mongoDB and connect them together.
-- To check the Nodejs is running, go to (yourip/8080), to get your ip run "docker-machine ip" command
+- run command 
+```bash
+docker-compose up
+```
+this should build the containers one for node and one for mongoDB and connect them together.
+- To check the Nodejs is running, go to (yourip/8080), to get your ip run command
+```bash
+docker-machine ip
+```
 
 ## Config
 
