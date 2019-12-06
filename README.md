@@ -50,6 +50,7 @@ MONGO_PASSWORD=yourPassword
 1. Express.js: is a modular web framework for Node.js.
 2. Mongoose: is an Object Data Modeling (ODM) library for MongoDB and Node. js. It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB.
 3. Body-Parser:  allows express to read the body and then parse that into a Json object that we can understand.
+4. Nodemon(dev): is a tool that helps develop node. js based applications by automatically restarting the node application when file changes in the directory are detected.
 
 ### Android
 1. Firebase for facebook/google authentication
