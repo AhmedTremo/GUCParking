@@ -36,12 +36,15 @@ app.get("/users", (req, res) => {
 });
 
 // create a user
-app.get("/user-create", (req, res) => {
-    const user = new User({ username: "userTest" })
-    
+app.post("/user-create", (req, res) => {
+    const user = new User(req.body)
     user.save()
-        .then(() => console.log("User Created"))
-    res.send("User Created \n")
+      .then(user => {
+          res.send("user saved to database");
+      })
+      .catch(err => {
+          res.status(400).send("unable to save");
+      })
 });
 
 
