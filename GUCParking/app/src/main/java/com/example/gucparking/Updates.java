@@ -18,6 +18,7 @@ public class Updates extends AppCompatActivity {
         setContentView(R.layout.activity_updates);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+//        we're supposed to get the updates from the updates database???
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
