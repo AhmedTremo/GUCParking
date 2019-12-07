@@ -9,7 +9,6 @@ const User = require("./models/Users");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-mongodb+srv://ahmedtremo:<password>@uscoders-8apxq.mongodb.net/test?retryWrites=true&w=majority
 
 
 // DB config
@@ -46,34 +45,36 @@ app.post("/user/create", (req, res) => {
         password: req.body.password
     })
     newUser.save()
-      .then(user => res.send("User saved successfully"))
-      .catch(err => res.status(400).send(err))
+        .then(user => res.send("User saved successfully"))
+        .catch(err => res.status(400).send(err))
+})
 
-app.post("/", (req, res) => {
-    User.findOne({ email: req.body.email })
-    .then(user => {
-      if (user) {
-        return res
-          .status(400)
-          .send("A user is already registered with this email");
-      }
-      var user = req.body;
-      User.create(user)
-        .then(user => {
-          return res.json({ msg: "User created", data: user });
-        })
-        .catch(err => {
-          console.log(err);
-          return res.sendStatus(500);
-        });
-    })
-    .catch(err => {
-      console.log(err);
-      return res.sendStatus(500);
+    app.post("/", (req, res) => {
+        User.findOne({ email: req.body.email })
+            .then(user => {
+                if (user) {
+                    return res
+                        .status(400)
+                        .send("A user is already registered with this email");
+                }
+                var user = req.body;
+                User.create(user)
+                    .then(user => {
+                        return res.json({ msg: "User created", data: user });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        return res.sendStatus(500);
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+                return res.sendStatus(500);
+            });
     });
-});
 
 
-app.listen(PORT, function() {
- console.log(`Listening on ${PORT}`);
-});
+
+    app.listen(PORT, function () {
+        console.log(`Listening on ${PORT}`);
+    })
