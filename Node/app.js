@@ -6,9 +6,11 @@ const bodyParser = require('body-parser');
 
 const User = require("./models/Users");
 
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 mongodb+srv://ahmedtremo:<password>@uscoders-8apxq.mongodb.net/test?retryWrites=true&w=majority
 
-app.use(bodyParser.urlencoded({ extended: false }));
 
 // DB config
 const db = require('./config/keys_dev').mongoURI
@@ -38,6 +40,15 @@ app.get("/users", (req, res) => {
 });
 
 // create a user
+app.post("/user/create", (req, res) => {
+    const newUser = new User({
+        email: req.body.email,
+        password: req.body.password
+    })
+    newUser.save()
+      .then(user => res.send("User saved successfully"))
+      .catch(err => res.status(400).send(err))
+
 app.post("/", (req, res) => {
     User.findOne({ email: req.body.email })
     .then(user => {
