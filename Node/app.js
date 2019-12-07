@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 
 const User = require("./models/Users");
 
+mongodb+srv://ahmedtremo:<password>@uscoders-8apxq.mongodb.net/test?retryWrites=true&w=majority
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // DB config
@@ -36,15 +38,28 @@ app.get("/users", (req, res) => {
 });
 
 // create a user
-app.post("/user-create", (req, res) => {
-    const user = new User(req.body)
-    user.save()
-      .then(user => {
-          res.send("user saved to database");
-      })
-      .catch(err => {
-          res.status(400).send("unable to save");
-      })
+app.post("/", (req, res) => {
+    User.findOne({ email: req.body.email })
+    .then(user => {
+      if (user) {
+        return res
+          .status(400)
+          .send("A user is already registered with this email");
+      }
+      var user = req.body;
+      User.create(user)
+        .then(user => {
+          return res.json({ msg: "User created", data: user });
+        })
+        .catch(err => {
+          console.log(err);
+          return res.sendStatus(500);
+        });
+    })
+    .catch(err => {
+      console.log(err);
+      return res.sendStatus(500);
+    });
 });
 
 
