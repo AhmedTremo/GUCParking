@@ -6,5 +6,5 @@ const UpdateSchema = new mongoose.Schema({
  }
 });
 
-const Update = mongoose.model("Updates", userSchema);
+const Update = mongoose.model("Update", UpdateSchema);
 module.exports = Update;
