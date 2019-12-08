@@ -54,7 +54,7 @@ public class Fillingparkinfo extends AppCompatActivity implements AdapterView.On
         done.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String userinfo = username +"has parked at "+ zone;
+                String userinfo = username +" has parked at "+ zone;
                 OkHttpClient client = new OkHttpClient();
 
                 RequestBody formbody = new FormEncodingBuilder()
