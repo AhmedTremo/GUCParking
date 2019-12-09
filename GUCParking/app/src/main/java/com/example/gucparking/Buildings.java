@@ -45,4 +45,8 @@ public class Buildings extends AppCompatActivity implements AdapterView.OnItemSe
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+    public void viewMyProfile(View view){
+        Intent i = new Intent(Buildings.this,Profile.class);
+        startActivity(i);
+    }
 }

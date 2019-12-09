@@ -5,29 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Buildings">
+
     <TextView
         android:id="@+id/Q1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:text="Can you tell us where do you want to go?"
+        android:textSize="27sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="Can you tell us where do you want to go?"
-        android:textSize="27sp"
-        android:gravity="center"
-        app:layout_constraintVertical_bias="0.27"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.27" />
+
     <Spinner
         android:id="@+id/spinner1"
-        app:layout_constraintTop_toBottomOf="@+id/Q1"
         android:layout_width="@dimen/fui_auth_method_button_width"
         android:layout_height="wrap_content"
         android:outlineAmbientShadowColor="@color/com_smart_login_code"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.2"/>
+        app:layout_constraintTop_toBottomOf="@+id/Q1"
+        app:layout_constraintVertical_bias="0.1" />
+
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
@@ -37,5 +40,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner1" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:onClick="viewMyProfile"
+        android:text="VIEW PROFILE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
