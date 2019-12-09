@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
+import com.example.gucparking.R;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
@@ -53,6 +54,7 @@ public class EmailPassword extends com.example.gucparking.BaseActivity implement
         findViewById(R.id.email_create_account_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.verify_button).setOnClickListener(this);
+        findViewById(R.id.proceed).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -86,6 +88,9 @@ public class EmailPassword extends com.example.gucparking.BaseActivity implement
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.proceed:
+                Intent i = new Intent(EmailPassword.this,Profile.class);
+                startActivity(i);
             case R.id.email_create_account_button:
                 createAccount(mEdtEmail.getText().toString(), mEdtPassword.getText().toString());
                 break;
@@ -148,11 +153,7 @@ public class EmailPassword extends com.example.gucparking.BaseActivity implement
                     mTextViewProfile.setText(task.getException().getMessage());
                 } else {
                     mTextViewProfile.setTextColor(Color.DKGRAY);
-                    Intent i = new Intent(EmailPassword.this,Status.class);
-                    startActivity(i);
-
                 }
-
                 hideProgressDialog();
             }
         });
@@ -214,12 +215,14 @@ public class EmailPassword extends com.example.gucparking.BaseActivity implement
             findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
             findViewById(R.id.email_password_fields).setVisibility(View.GONE);
             findViewById(R.id.signout_zone).setVisibility(View.VISIBLE);
+            findViewById(R.id.proceed).setVisibility(View.VISIBLE);
         } else {
             mTextViewProfile.setText(null);
 
             findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
             findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
             findViewById(R.id.signout_zone).setVisibility(View.GONE);
+            findViewById(R.id.proceed).setVisibility(View.GONE);
         }
         hideProgressDialog();
     }

@@ -1,26 +1,27 @@
 package com.example.gucparking;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.View;
-import android.widget.Switch;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
+import static android.provider.Telephony.Mms.Part.CHARSET;
 
 public class Updates extends AppCompatActivity {
 
@@ -32,85 +33,14 @@ public class Updates extends AppCompatActivity {
     JSONArray jArrayGate5;
     JSONArray jArrayParking;
     JSONArray sortedarray;
+    TextView v;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_updates);
-        OkHttpClient client = new OkHttpClient();
-
-
-        final String URL = "http://localhost:8080/updates";
-
-        Request request = new Request.Builder()
-                .url(URL)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-
-                if (response.isSuccessful()) {
-                    final String onResponse = response.body().string();
-                    try {
-                        JSONObject jObject = new JSONObject(onResponse);
-                        jArray = jObject.getJSONArray("data");
-
-                        try {
-
-                            for(int i =0;i<jArray.length();i++){
-                                String[] x = jArray.getJSONObject(i).toString().split(" ");
-                                switch(x[4]){
-                                    case "Gate3" : jArrayGate3.put(jArray.getJSONObject(i));
-                                    case "Gate4" : jArrayGate4.put(jArray.getJSONObject(i));
-                                    case "Gate5":  jArrayGate5.put(jArray.getJSONObject(i));
-                                    case "Gate2":  jArrayGate2.put(jArray.getJSONObject(i));
-                                    case "Gate1":  jArrayGate1.put(jArray.getJSONObject(i));
-                                    case "Parking":jArrayParking.put(jArray.getJSONObject(i));
-
-                                }
-                            }
-                            String rq = getIntent().getExtras().getString("RequiredPlace");
-                            switch(rq){
-                                case "B Building": addGate1();addparking();addGate3();addGate2();addGate4();addGate5();
-                                case "C Building": addGate3();addGate2();addGate4();addGate5();addGate1();addparking();
-                                case "D Building": ;addparking();addGate3();addGate2();addGate1();addGate4();addGate5();
-                                case "Exam Halls": ;addGate4();addGate5();addGate3();addGate2();addGate1();addparking();
-
-                            }
-                            for(int j =0;j<sortedarray.length();j++){
-
-                            }
-
-
-                        } catch (JSONException e) {
-                            // Oops
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    Updates.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                }
-            }
-        }
-        );
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-//        we're supposed to get the updates from the updates database???
-
+        v = findViewById(R.id.t1);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,59 +49,62 @@ public class Updates extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+//        MongoClientURI uri = new MongoClientURI(
+//                "mongodb://ahmedtremo:LvWc_r4m8_2zdM2@uscoders-8apxq.mongodb.net/test?retryWrites=true&w=majority");
+//
+//        MongoClient mongoClient = new MongoClient(uri);
+//        MongoDatabase database = mongoClient.getDatabase("test");
+//        MongoCollection<Document> coll = database.getCollection("updates");
+//        v.setText(coll.count()+" ");
+
+        new GetDataTask().execute("http://10.0.2.2:8080/updates");//Getting the data task 10.0.2.2 access local host
     }
-    public void addGate3(){
-        for(int i=0;i<jArrayGate3.length();i++) {
-            try {
-                sortedarray.put(jArrayGate3.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+    class GetDataTask extends AsyncTask<String,Void,String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            StringBuilder b = new StringBuilder();
+            try{
+                URL url = new URL(strings[0]);
+                HttpURLConnection urlconnection;
+                urlconnection = (HttpURLConnection) url.openConnection();
+                urlconnection.setRequestMethod("GET");
+                urlconnection.setDoInput(true);
+                urlconnection.setRequestProperty("Accept-Charset", CHARSET);
+                //error???
+                urlconnection.connect();
+
+                InputStream i = urlconnection.getInputStream();
+                BufferedReader r = new BufferedReader(new InputStreamReader(i));
+                String line;
+                while((line = r.readLine())!=null){
+
+                    b.append(line).append("\n");
+                }
+                return b.toString();
+
+            }
+            catch (MalformedURLException e){
+                return "MalformedURL";
+            }
+            catch( ProtocolException e){
+                return "Protocol exception";
+            }
+            catch (IOException e){
+                return "open connection";
             }
         }
-    }
-    public void addGate2(){
-        for(int i=0;i<jArrayGate2.length();i++) {
-            try {
-                sortedarray.put(jArrayGate2.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
+        @Override
+        protected void onPreExecute() {
+
         }
-    }
-    public void addGate4(){
-        for(int i=0;i<jArrayGate4.length();i++) {
-            try {
-                sortedarray.put(jArrayGate4.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    public void addGate5(){
-        for(int i=0;i<jArrayGate5.length();i++) {
-            try {
-                sortedarray.put(jArrayGate5.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    public void addGate1(){
-        for(int i=0;i<jArrayGate1.length();i++) {
-            try {
-                sortedarray.put(jArrayGate1.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    public void addparking(){
-        for(int i=0;i<jArrayParking.length();i++) {
-            try {
-                sortedarray.put(jArrayParking.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            v.setText(s);
         }
     }
 }
