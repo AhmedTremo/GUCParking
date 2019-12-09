@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class Status extends AppCompatActivity {
 
@@ -19,6 +20,8 @@ public class Status extends AppCompatActivity {
     FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_status);
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -35,16 +38,30 @@ public class Status extends AppCompatActivity {
 
         Button parked = findViewById(R.id.parked);
         Button notparked = findViewById(R.id.looking);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_status);
-        Intent i = new Intent(Status.this,Updates.class);
-        i.putExtra("user",username);
-        startActivity(i);
+
+
+//        Intent i = new Intent(Status.this,Updates.class);
+//        i.putExtra("user",username);
+//        startActivity(i);
         parked.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                status = "parked";
+                status = "Parked";
                 String userinfo = username + " " + status;
+                mAuth = FirebaseAuth.getInstance();
+                mAuthListener = new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        if (user != null) {
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(status)
+                                    .setPhotoUri(null)
+                                    .build();
+                        }
+
+                    }
+                };
                 Intent i = new Intent(Status.this,Fillingparkinfo.class);
                 i.putExtra("user",userinfo);
                 startActivity(i);
@@ -53,9 +70,23 @@ public class Status extends AppCompatActivity {
         notparked.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                status = "not parked";
+                status = "Not Parked";
                 String userinfo = username + " " + status;
-                Intent i = new Intent(Status.this,Updates.class);
+                mAuth = FirebaseAuth.getInstance();
+                mAuthListener = new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        if (user != null) {
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(status)
+                                    .setPhotoUri(null)
+                                    .build();
+                        }
+
+                    }
+                };
+                Intent i = new Intent(Status.this,Buildings.class);
                 i.putExtra("user",userinfo);
                 startActivity(i);
 

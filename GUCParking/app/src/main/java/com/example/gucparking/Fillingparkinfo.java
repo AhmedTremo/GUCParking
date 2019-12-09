@@ -32,9 +32,10 @@ public class Fillingparkinfo extends AppCompatActivity implements AdapterView.On
     private static final String[] paths = {"Gate1", "Gate2", "Gate3","Gate4","Gate5","OnCampusParking"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final String URL = "http://localhost:8080/addingUpdate";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fillingparkinfo);
+        final String URL = "http://10.0.2.2:8080/addingUpdate";
+
         Button done = findViewById(R.id.button2);
 
 
@@ -65,18 +66,20 @@ public class Fillingparkinfo extends AppCompatActivity implements AdapterView.On
                         .post(formbody)
                         .build();
                 try{
-                    Response response = client.newCall(request).execute();
+                    Response response = client.newCall(request).execute(); //error
                     if (!response.isSuccessful()) System.out.println("cannot insert");
                     else {
                         System.out.println("Successful");
-                        Intent i = new Intent(Fillingparkinfo.this,Updates.class);
+                        Intent i = new Intent(Fillingparkinfo.this,Thankyou.class);
                         startActivity(i);
                     }
 
                     try{
                         System.out.println(response.body().string());
                     }
-                    catch(Exception e){}
+                    catch(Exception e){
+
+                    }
                 }
                 catch(Exception e){
                     e.printStackTrace();

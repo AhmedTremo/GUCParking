@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
     networks:
       - app-network
-    env_file: v.env
+    env_file: .env
     environment:
         - MONGO_USERNAME=$MONGO_USERNAME
         - MONGO_PASSWORD=$MONGO_PASSWORD  
@@ -29,4 +29,3 @@ services:
 networks:
   app-network:
     driver: bridge    
-
