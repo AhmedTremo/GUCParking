@@ -49,13 +49,6 @@ public class Updates extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-//        MongoClientURI uri = new MongoClientURI(
-//                "mongodb://ahmedtremo:LvWc_r4m8_2zdM2@uscoders-8apxq.mongodb.net/test?retryWrites=true&w=majority");
-//
-//        MongoClient mongoClient = new MongoClient(uri);
-//        MongoDatabase database = mongoClient.getDatabase("test");
-//        MongoCollection<Document> coll = database.getCollection("updates");
-//        v.setText(coll.count()+" ");
 
         new GetDataTask().execute("http://10.0.2.2:8080/updates");//Getting the data task 10.0.2.2 access local host
     }
